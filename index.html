@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Media Wars</title>
+    <meta name="description" content="Media Wars">
+    <link rel="image_src" href="https://raw.githubusercontent.com/mneunomne/pandemic_archive_of_voices-documentation/master/images/cover.png" />
+    <meta name="author" content="alberto harres">
+    <meta name="keywords" content="chi him, chi him chik, alberto harres, alberto salgado harres,mneu nomne, mneu_nomne, mneunomne, pandemic archive, pandemic archive of voices, hfk bremen, hfk, hochschule fur kunste, installation, aframe, processing, a-frame, sound">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <!-- aframe stuff -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
+    <!--<script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>-->
+    <script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.js"></script> 
+    <script src="https://gftruj.github.io/webzamples/aframe/collada/dist/collada-model.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./js/movement-restrictor.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;400&family=Xanh+Mono&display=swap" rel="stylesheet">
+    <script src="/js/script.js"></script>
+
+    <link rel="stylesheet" href="css/styles.css">
+
+  </head>
+  <body>
+    <div id="text-wrapper" style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden"></div>
+    <a-scene  reflection="directionalLight: a-light#dirlight;" vr-mode-ui="enabled: false" id="scene" simulation background="color: #ECECEC" light="defaultLightsEnabled: false" >
+      
+      <a-light id="dirlight" intensity="0.2" light="castShadow: true" position="-20.7 5.08805 -1.19224"></a-light>
+      <a-light id="dirlight" intensity="0.2" light="castShadow: true" position="15.7 5.08805 -15.19224"></a-light>
+
+      <a-entity id="camera" camera orbit-controls="target: 0 1.6 0; initialPosition: 0.386 4.978 7.685; enablePan: false; autoRotate: true; autoRotateSpeed: 0.055; maxDistance: 15; zoomSpeed: 3; maxPolarAngle: 90;"></a-entity> <!-- wasd-controls="acceleration:50; fly: true;" -->
+      <a-assets >
+        <video autoplay width="200" height="200" id="video-0" loop="true" source src="videos/testmovie2.mp4"></video>
+        <video autoplay width="200" height="200" id="video-1" loop="true" src="videos/video1.mp4"></video>
+        <video autoplay width="200" height="200" id="video-2" loop="true" src="videos/video2.mp4"></video>
+        <video autoplay width="200" height="200" id="video-3" loop="true" src="videos/video3.mp4"></video>
+        <video autoplay width="200" height="200" id="video-4" loop="true" src="videos/video4.mp4"></video>
+        <img  id="concrete" src="images/concrete.jpg"></img>
+      </a-assets>
+            
+      <a-sky color="#000000"></a-sky>
+
+
+      <!--
+        <a-plane width="9" height="9" rotation="90 0 0" material="side: double; color: #1a1a1a"></a-plane>
+      -->
+      <a-plane material="src:#concrete; repeat: 2 2" width="20" height="20" rotation="-90 0 0" ></a-plane>
+
+      <!-- room -->
+      <a-entity id="room" room="w: 16; h: 20; z: 20;">
+        <!--<a-box position="0 1.5 0" material="shader: flat; color: gray;"></a-box>-->
+      <a-entity position="0 2 0">
+        <a-box position="1.6 1.5 0" depth="3.25" width="0.05" height="0.05" material="color: #ffffff; roughness: 0.25; metalness: 0.75;"></a-box>
+        <a-box position="-1.6 1.5 0" depth="3.25" width="0.05" height="0.05" material="color: #ffffff; roughness: 0.25; metalness: 0.75;"></a-box>
+        
+        <a-box position="0 1.5 1.6" depth="0.05" width="3.25" height="0.05" material="color: #ffffff; roughness: 0.25; metalness: 0.75;"></a-box>
+        <a-box position="0 1.5 -1.6" depth="0.05" width="3.25" height="0.05" material="color: #ffffff; roughness: 0.25; metalness: 0.75;"></a-box>
+
+        <a-plane position="1.6 0 0" rotation="0 90 0" width="3" height="3" position="0 1.5 0" material="color: #ffffff;">
+          <a-video width="3" height="3" position="0 0 0.01" src="#video-0" loop="true"></a-video>
+          <a-video width="3" height="3" position="0 0 -0.01" src="#video-1" loop="true"></a-video>
+        </a-plane>
+        <a-plane position="-1.6 0 0" rotation="0 -90 0" width="3" height="3" position="0 1.5 0" material="color: #ffffff">
+          <a-video width="3" height="3" position="0 0 0.01" src="#video-0" loop="true"></a-video>
+          <a-video width="3" height="3" position="0 0 -0.01" src="#video-2" loop="true"></a-video>
+        </a-plane>
+        <a-plane position="0 0 1.6" rotation="0 0 0" width="3" height="3" position="0 1.5 0" material="color: #ffffff">
+          <a-video width="3" height="3" position="0 0 0.01" src="#video-0" loop="true"></a-video>
+          <a-video width="3" height="3" position="0 0 -0.01" src="#video-3" loop="true"></a-video>
+        </a-plane>
+        <a-plane position="0 0 -1.6" rotation="0 180 0" width="3" height="3" position="0 1.5 0" material="color: #ffffff">
+          <a-video width="3" height="3" position="0 0 0.01" src="#video-0" loop="true"></a-video>
+          <a-video width="3" height="3" position="0 0 -0.01" src="#video-4" loop="true"></a-video>
+        </a-plane>
+      </a-entity>
+        
+
+      </a-entity>
+      <a-entity light="color: #BBB; type: ambient; decay: 0.92; intensity: 0.3" data-aframe-default-light="" aframe-injected="" visible=""></a-entity>
+    </a-scene>
+    <div id="container">
+      <div class="hidden" id="loading">
+        loading<span id="dots"></span>
+      </div>
+      <!--
+
+      <div id="info">
+        <h3 id="title" class="text-transition">Edit Wars</h3>
+        
+        <ul id="menu" class="text-transition hidden">
+          <li class="opt_abstract">abstract</li>
+          <li class="opt_images">images</li>
+          <li class="opt_links">links</li>
+        </ul>
+        
+        
+        <div class="info_body">
+          <div id="description" class="text-transition">
+            <p><span style="font-weight: 400;">Edit Wars is an <strong>interactive artistic project</strong> based on an analysis of <strong>media publications accompanying the growing militarization and manipulation of mass consciousness in Russia</strong>. The project addresses the use of aggressive narratives in the government-controlled media that isolate public perception from the real state of affairs. The research part of the project combines the use of quantitative and qualitative methods of working with <strong>data from large datasets</strong> to draw meaningful conclusions for the presentation. The artistic part of the project aims to <strong>put the findings into a multimedia interactive medium</strong>.&nbsp;</span></p>
+            <p><span style="font-weight: 400;">Constant information pressure, news distortion and obfuscation are the harsh reality of Russia. Right now, we are seeing information warfare turning into a rocket war with mass killings and collective trauma. And the blame for unleashing this war lies also with state propaganda. We believe that developing critical thinking and the ability to resist manipulation will help keep things sane.&nbsp;</span></p>
+          </div>
+        </div>
+      -->
+        <br>
+      </div>
+    </div>
+  </body>
+</html>
